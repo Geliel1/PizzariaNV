@@ -1,0 +1,146 @@
+<!--<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carrinho - Nova Chronos</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="bg">
+    <header>
+      <h1>Carrinho</h1>
+      <button id="close-cart">Fechar Carrinho</button>
+    </header>
+    
+    <section id="cart-container">
+    </section>
+
+    <footer>
+      <p>Nova Chronos - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+      // Recuperar o carrinho do localStorage ou iniciar um carrinho vazio
+      let cart = JSON.parse(localStorage.getItem('cart')) || {};
+      const cartContainer = document.getElementById('cart-container');
+      
+      // Função para atualizar a interface do carrinho
+      function updateCartUI() {
+        cartContainer.innerHTML = '';
+        if (Object.keys(cart).length === 0) {
+          cartContainer.innerHTML = '<p>Seu carrinho está vazio.</p>';
+        } else {
+          Object.values(cart).forEach(item => {
+            // Div para cada item no carrinho
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('cart-item');
+            itemDiv.setAttribute('data-name', item.name);
+            
+            // Imagem do produto
+            const img = document.createElement('img');
+            img.src = item.img;
+            img.alt = item.name;
+            
+            // Informações do item
+            const infoDiv = document.createElement('div');
+            infoDiv.classList.add('item-info');
+            
+            const title = document.createElement('h3');
+            title.textContent = item.name;
+            
+            const quantity = document.createElement('p');
+            quantity.classList.add('item-quantity');
+            quantity.textContent = `Quantidade: ${item.quantity}`;
+            
+            const price = document.createElement('p');
+            price.classList.add('item-price');
+            price.textContent = `R$ ${(item.price * item.quantity).toFixed(2)}`;
+            
+            infoDiv.appendChild(title);
+            infoDiv.appendChild(quantity);
+            infoDiv.appendChild(price);
+            
+            // Botões de controle
+            const controlsDiv = document.createElement('div');
+            controlsDiv.classList.add('item-controls');
+            
+            const minusBtn = document.createElement('button');
+            minusBtn.classList.add('decrease');
+            minusBtn.textContent = '–';
+            
+            const plusBtn = document.createElement('button');
+            plusBtn.classList.add('increase');
+            plusBtn.textContent = '+';
+            
+            controlsDiv.appendChild(minusBtn);
+            controlsDiv.appendChild(plusBtn);
+            
+            itemDiv.appendChild(img);
+            itemDiv.appendChild(infoDiv);
+            itemDiv.appendChild(controlsDiv);
+            
+            cartContainer.appendChild(itemDiv);
+            
+            // Atualizar quantidade e preço ao aumentar
+            plusBtn.addEventListener('click', function() {
+              cart[item.name].quantity++;
+              quantity.textContent = `Quantidade: ${cart[item.name].quantity}`;
+              price.textContent = `R$ ${(cart[item.name].price * cart[item.name].quantity).toFixed(2)}`;
+              localStorage.setItem('cart', JSON.stringify(cart));
+              updateCartUI();
+            });
+            
+            // Diminuir quantidade ou remover o item
+            minusBtn.addEventListener('click', function() {
+              if (cart[item.name].quantity > 1) {
+                cart[item.name].quantity--;
+                quantity.textContent = `Quantidade: ${cart[item.name].quantity}`;
+                price.textContent = `R$ ${(cart[item.name].price * cart[item.name].quantity).toFixed(2)}`;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartUI();
+              } else {
+                delete cart[item.name];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartUI();
+              }
+            });
+          });
+        }
+      }
+      
+      // Função para adicionar item ao carrinho (simula um botão de adicionar)
+      function addToCart(name, price, img) {
+        if (cart[name]) {
+          cart[name].quantity++;
+        } else {
+          cart[name] = { name, price, img, quantity: 1 };
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartUI();
+      }
+      
+      // Exemplo: Adicionar um produto ao carrinho (você pode substituir isso com o botão de "Adicionar ao Carrinho" no seu HTML)
+      // Este código é apenas um exemplo de como adicionar um produto ao carrinho
+      // addToCart("Produto X", 29.99, "img/produto-x.jpg"); 
+      
+      // Atualiza a interface do carrinho ao carregar a página
+      updateCartUI();
+
+      // Fechar carrinho
+      document.getElementById('close-cart').addEventListener('click', function(){
+        window.history.back();
+      });
+      // Escutar pizzas adicionadas pelo meioameio.js
+      window.addEventListener('add-to-cart', (e) => {
+        const { nome, preco, imagem } = e.detail;
+        addToCart(nome, preco, imagem);
+});
+
+
+
+    </script>
+  </div>
+</body>
+</html>
+-->
